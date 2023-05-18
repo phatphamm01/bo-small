@@ -1,0 +1,39 @@
+{
+  "cSpell.words": [
+    "callees",
+    "classcat",
+    "intolerances",
+    "koue",
+    "nextjs",
+    "persistor",
+    "recaptcha",
+    "Strapi",
+    "Sumary",
+    "svgs",
+    "typecheck",
+    "typegen",
+    "xstate",
+    "اَلْعَرَبِيَ"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "tailwindCSS.classAttributes": [".*[Cc]lasses", ".*[Cc]lass[Nn]ame"],
+  "tailwindCSS.experimental.classRegex": [
+    ["\\S*[Cc]lasses\\S* = \\[([\\s\\S]+?)(\\]\\n|\\n\\])", "'([^']*)'"],
+    ["\\S*[Cc]lasses\\S* = \\[([\\s\\S]+?)(\\]\\n|\\n\\])", "\"([^\"]*)\""],
+    ["\\S*[Cc]lasses\\S* = \\[([\\s\\S]+?)(\\]\\n|\\n\\])", "`([^`]*)`"],
+
+    ["(\\S*[Cc]lasses: \\[[\\s\\S]*\\])", "'([^']*)'"],
+    ["(\\S*[Cc]lasses: \\[[\\s\\S]*\\])", "\"([^\"]*)\""],
+    ["(\\S*[Cc]lasses: \\[[\\s\\S]*\\])", "`([^`]*)`"],
+
+    ["(\\S*[Cc]lasses: '[\\s\\S]*'+)", "'([^']*)'"],
+    ["(\\S*[Cc]lasses: \"[\\s\\S]*\"+)", "\"([^\"]*)\""],
+    ["(\\S*[Cc]lasses: `[\\s\\S]*`+)", "`([^`]*)`"],
+
+    ["(\\S*[Cc]lass[Nn]ame: '[\\s\\S]*'+)", "'([^']*)'"],
+    ["(\\S*[Cc]lass[Nn]ame: \"[\\s\\S]*\"+)", "\"([^\"]*)\""],
+    ["(\\S*[Cc]lass[Nn]ame: `[\\s\\S]*`+)", "`([^`]*)`"]
+  ]
+}

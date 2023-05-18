@@ -1,4 +1,8 @@
+//THIRD PARTY MODULES
 import NextAuth from "next-auth";
+//HOOK
 import { authOptions } from "_@/server/auth";
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+
+export default handler;

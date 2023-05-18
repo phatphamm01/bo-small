@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --max-bound: 1440px;
+    /* --site-pad: 80px; */
+    --h-header: 80px;
+    --max-content: calc(var(--max-bound) - 2 * var(--site-pad));
+
+    --preview-site-pad: 80px;
+    --preview-max-bound: 1440px;
+    --preview-max-content: calc(
+      var(--preview-max-bound) - 2 * var(--preview-site-pad)
+    );
+    --preview-max-padding: max(
+      var(--preview-site-pad),
+      calc((100vw - var(--preview-max-content)) / 2)
+    );
+  }
+  @media screen and (max-width: 1025px) {
+    :root {
+      /* --site-pad: 40px; */
+      --preview-site-pad: 40px;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    :root {
+      /* --site-pad: 24px; */
+      --preview-site-pad: 24px;
+    }
+  }
+
+  @font-face {
+    font-family: georgia;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/georgia.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: georgia;
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/georgia_italic.woff2") format("woff2");
+  }
+
+  .max-content-by-pi {
+    padding-inline: max(
+      var(--site-pad),
+      calc((100vw - var(--max-content)) / 2)
+    );
+  }
+}

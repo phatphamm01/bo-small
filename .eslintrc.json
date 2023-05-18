@@ -1,0 +1,46 @@
+{
+  "extends": ["plugin:@typescript-eslint/recommended"],
+  "plugins": ["classify-imports"],
+  "rules": {
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "classify-imports/classify-imports": [
+      "warn",
+      {
+        "importOrder": [
+          "<THIRD_PARTY_MODULES> --comment THIRD PARTY MODULES",
+          //regex start
+          "(layout)|(components) --comment LAYOUT, COMPONENTS",
+          "(shared) --comment SHARED",
+          "(server)|(/hook) --comment HOOK",
+          "(config) --comment CONFIG",
+          //regex end
+          "<RELATIVE_MODULES> --comment RELATIVE MODULES",
+          "<TYPES_MODULES> --comment TYPES MODULES"
+        ],
+        "importOrderSeparation": false,
+        "importOrderSortByLength": true,
+        "importOrderSplitType": true,
+        "importOrderAddComments": true
+        // "importWithSemicolon": true,
+      }
+    ]
+  },
+  "settings": {
+    "tailwindcss": {
+      "config": "./apps/landing/tailwind.config.js",
+      "callees": ["classcat"]
+    }
+  }
+}

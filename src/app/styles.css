@@ -1,0 +1,54 @@
+@tailwind components;
+
+@layer components {
+  .four-card {
+    grid-area: four-card;
+  }
+
+  .total-post {
+    grid-area: total-post;
+  }
+
+  .traffic-sources {
+    grid-area: traffic-sources;
+  }
+
+  .article {
+    grid-area: article;
+  }
+
+  .writers {
+    grid-area: writers;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "four-card"
+      "total-post"
+      "traffic-sources"
+      "article"
+      "writers";
+  }
+
+  @screen lg {
+    .layout {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-areas:
+        "four-card four-card four-card four-card"
+        "writers writers traffic-sources traffic-sources"
+        "total-post total-post total-post total-post"
+        "article article article article";
+    }
+  }
+
+  @screen xl {
+    .layout {
+      grid-template-columns: 3fr 4fr 3fr;
+      grid-template-areas:
+        "four-card four-card four-card"
+        "total-post total-post traffic-sources"
+        "article article writers";
+    }
+  }
+}
