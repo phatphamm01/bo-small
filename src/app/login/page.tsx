@@ -26,10 +26,11 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: Values) => {
+    console.log(`${window.location.origin}`);
     const res = await signIn("credentials", {
       usernameOrEmail: data.email,
       password: data.password,
-      callbackUrl: "/",
+      callbackUrl: `${window.location.origin}`,
       // redirect: false,
     }).catch((err) => {
       console.log({ err });

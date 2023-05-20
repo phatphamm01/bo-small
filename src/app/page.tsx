@@ -33,9 +33,17 @@ const getTopWriter = async () => {
   return res.data;
 };
 
+const getArticleTopTime = async () => {
+  const res = await articleApi.findAllArticlePagingV2(0, 4, ["createdAt,desc"]);
+  return res.data?.content;
+};
+
 export default async function Page() {
   const reportUser = await getReportUser();
   const topWriter = await getTopWriter();
+  const articleTopTime = await getArticleTopTime();
+
+  console.log(articleTopTime);
 
   return (
     <MainLayout>
@@ -43,7 +51,7 @@ export default async function Page() {
         <FourCard data={reportUser} />
         <TotalPost />
         <TrafficSources />
-        <Article />
+        <Article data={articleTopTime} />
         <Writers data={topWriter} />
       </div>
     </MainLayout>

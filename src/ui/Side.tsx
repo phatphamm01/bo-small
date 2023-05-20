@@ -56,7 +56,10 @@ export default function Side({ className }: { className?: string }) {
         </div>
         <button
           onClick={() => {
-            signOut();
+            console.log(`${window.location.origin}/login`);
+            signOut({
+              callbackUrl: `${window.location.origin}/login`,
+            });
           }}
         >
           <ArrowLeftOnRectangleIcon className="h-6 text-stone-400" />

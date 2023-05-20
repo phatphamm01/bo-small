@@ -21,6 +21,7 @@ import {
 } from "react";
 //LAYOUT, COMPONENTS
 import NoData from "_@/components/NoData";
+import ScrollArea from "_@/components/ScrollArea";
 
 type ChildrenType = { children?: ReactElement | ReactElement[] | ReactNode };
 
@@ -48,7 +49,9 @@ const Root = ({ children, tableInstance, ...rest }: ReactTableProps) => {
 function Table({ children, ...props }: ComponentProps<typeof StyledTable>) {
   return (
     <Wrapper>
-      <StyledTable {...props}>{children}</StyledTable>
+      <ScrollArea>
+        <StyledTable {...props}>{children}</StyledTable>
+      </ScrollArea>
     </Wrapper>
   );
 }
@@ -198,14 +201,10 @@ function ActionsSection({ children }: { children: ChildrenType }) {
   return { children };
 }
 
-const Wrapper = styled(
-  "div",
-  "relative overflow-x-auto [&::-webkit-scrollbar]:hidden shadow-sm",
-  {
-    MsOverflowStyle: "none" /* Hide scrollbar for IE and Edge */,
-    scrollbarWidth: "none" /* Hide scrollbar for IE and Edge */,
-  }
-);
+const Wrapper = styled("div", "relative overflow-x-auto shadow-sm", {
+  MsOverflowStyle: "none" /* Hide scrollbar for IE and Edge */,
+  scrollbarWidth: "none" /* Hide scrollbar for IE and Edge */,
+});
 const StyledTable = styled(
   "table",
   "w-full min-w-max bg-white rounded-lg overflow-hidden"
@@ -226,8 +225,7 @@ const StyledTH = styled(
     "[&_svg.sort-icon]:w-4 [&_svg.sort-icon]:h-4 [&_svg.sort-icon]:absolute [&_svg.sort-icon]:top-1/2 [&_svg.sort-icon]:right-1 [&_svg.sort-icon]:-translate-y-1/2",
     canSort && "cursor-pointer select-none",
     isAction && "pr-3",
-    isRowSelection &&
-      'w-10 pl-3 [&>div]:block [&_input]:block [&_span[role="checkbox"]]:hidden',
+    isRowSelection && "w-10 pl-3 [&>div]:block [&_input]:block",
   ]
 );
 const StyledTBody = styled("tbody", "", {});

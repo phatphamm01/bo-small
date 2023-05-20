@@ -19,7 +19,16 @@ export const SortHeader = ({
   const searchParams = useSearchParams();
 
   const pathname = usePathname();
-  const [sort, setSort] = useState<"asc" | "desc" | undefined>(undefined);
+  const [sort, setSort] = useState<"asc" | "desc" | undefined>(() => {
+    const query = new URLSearchParams(searchParams?.toString());
+    const key = "sort";
+    const sorts = query.getAll(key).map((item) => {
+      return decodeURIComponent(item).split(",");
+    });
+    const index = sorts.findIndex((item) => item[0] === formatTitle(name));
+    //@ts-ignore
+    return index !== -1 ? (sorts[index][1] as "asc" | "desc") : undefined;
+  });
 
   const onSort = (sort: "asc" | "desc" | undefined) => {
     const status = {
@@ -31,8 +40,6 @@ export const SortHeader = ({
       : (status[sort] as "asc" | "desc" | undefined);
 
     setSort(newStatus);
-
-    //update query params
 
     const key = "sort";
     const prefix = ",";

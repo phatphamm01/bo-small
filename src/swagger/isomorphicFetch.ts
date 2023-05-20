@@ -1,4 +1,5 @@
 //THIRD PARTY MODULES
+import axios from "axios";
 import { getServerSession } from "next-auth";
 //HOOK
 import { authOptions } from "_@/server/auth";
@@ -18,9 +19,20 @@ export const isomorphicFetch = async (
   const token = await accessToken;
   console.log({ token });
 
-  if (typeof window !== "undefined" && !token) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    window.location.reload();
+  if (typeof window !== "undefined") {
+    const response = await fetch("/api/proxy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        url: input,
+        method: init?.method,
+        params: init?.body,
+      }),
+    });
+    return response;
   }
 
   return fetch(input, {

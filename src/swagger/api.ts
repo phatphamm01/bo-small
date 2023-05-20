@@ -14,8 +14,9 @@
  */
 
 import * as url from "url";
-import { isomorphicFetch } from "_@/swagger/isomorphicFetch";
 import { Configuration } from "./configuration";
+import { removeKeyFromObj } from "_@/swagger/removeKeyFromObj";
+import { isomorphicFetch } from "_@/swagger/isomorphicFetch";
 
 export const BASE_PATH = "http://14.225.205.235:8080".replace(/\/+$/, "");
 
@@ -76,7 +77,7 @@ export class BaseAPI {
  * @extends {Error}
  */
 export class RequiredError extends Error {
-  // name: "RequiredError";
+  // name: "RequiredError"
   constructor(public field: string, msg?: string) {
     super(msg);
   }
@@ -496,6 +497,12 @@ export interface ArticleDto {
    * @type {number}
    * @memberof ArticleDto
    */
+  totalComment?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof ArticleDto
+   */
   view?: number;
 }
 
@@ -809,7 +816,19 @@ export interface CommentDto {
    * @type {string}
    * @memberof CommentDto
    */
-  lastModifyDate?: string;
+  updatedAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CommentDto
+   */
+  createdBy?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CommentDto
+   */
+  modifiedBy?: string;
 }
 /**
  *
@@ -878,6 +897,25 @@ export interface DayTransactionReport {
    * @memberof DayTransactionReport
    */
   dateTran?: string;
+}
+/**
+ *
+ * @export
+ * @interface DenyContentCreatorRequest
+ */
+export interface DenyContentCreatorRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof DenyContentCreatorRequest
+   */
+  reason?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof DenyContentCreatorRequest
+   */
+  userId: number;
 }
 /**
  *
@@ -2651,13 +2689,13 @@ export interface UserDto {
    * @type {boolean}
    * @memberof UserDto
    */
-  contentCreator?: boolean;
+  _new?: boolean;
   /**
    *
    * @type {boolean}
    * @memberof UserDto
    */
-  _new?: boolean;
+  contentCreator?: boolean;
 }
 /**
  *
@@ -2772,12 +2810,6 @@ export interface UserProfile {
 export interface UserReportDto {
   /**
    *
-   * @type {string}
-   * @memberof UserReportDto
-   */
-  image?: string;
-  /**
-   *
    * @type {number}
    * @memberof UserReportDto
    */
@@ -2794,6 +2826,12 @@ export interface UserReportDto {
    * @memberof UserReportDto
    */
   ticketAmount?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof UserReportDto
+   */
+  image?: string;
   /**
    *
    * @type {string}
@@ -2897,7 +2935,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -2941,7 +2979,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -2991,7 +3029,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3041,7 +3079,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3094,7 +3132,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3162,7 +3200,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3208,7 +3246,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3270,7 +3308,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3342,7 +3380,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3432,7 +3470,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3522,7 +3560,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3561,7 +3599,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3628,7 +3666,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3690,7 +3728,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3736,7 +3774,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3781,7 +3819,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3827,7 +3865,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3889,7 +3927,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3937,7 +3975,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -3981,7 +4019,7 @@ export const ArticleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -5565,7 +5603,7 @@ export const AuthControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -5636,7 +5674,7 @@ export const AuthControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -5685,7 +5723,7 @@ export const AuthControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -5734,7 +5772,7 @@ export const AuthControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -6066,7 +6104,7 @@ export const BillControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -6118,7 +6156,7 @@ export const BillControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -6178,7 +6216,7 @@ export const BillControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -6238,7 +6276,7 @@ export const BillControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -6284,7 +6322,7 @@ export const BillControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -6330,7 +6368,7 @@ export const BillControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -6369,7 +6407,7 @@ export const BillControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -6929,7 +6967,7 @@ export const BranchControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -6995,7 +7033,7 @@ export const BranchControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -7041,7 +7079,7 @@ export const BranchControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -7086,7 +7124,7 @@ export const BranchControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -7468,7 +7506,7 @@ export const InteractionControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -7512,7 +7550,7 @@ export const InteractionControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -7562,7 +7600,7 @@ export const InteractionControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -7614,7 +7652,7 @@ export const InteractionControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -7662,7 +7700,7 @@ export const InteractionControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -7729,7 +7767,7 @@ export const InteractionControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -7773,7 +7811,7 @@ export const InteractionControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -8318,7 +8356,7 @@ export const MovieControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -8371,7 +8409,7 @@ export const MovieControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -8455,7 +8493,7 @@ export const MovieControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -8539,7 +8577,7 @@ export const MovieControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -8572,7 +8610,7 @@ export const MovieControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -8617,7 +8655,7 @@ export const MovieControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -8661,7 +8699,7 @@ export const MovieControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -8704,7 +8742,7 @@ export const MovieControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -9435,7 +9473,7 @@ export const RoomControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -9481,7 +9519,7 @@ export const RoomControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -9771,7 +9809,7 @@ export const ScheduleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -9837,7 +9875,7 @@ export const ScheduleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -9921,7 +9959,7 @@ export const ScheduleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -9995,7 +10033,7 @@ export const ScheduleControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -10506,7 +10544,7 @@ export const SeatControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -10658,7 +10696,7 @@ export const TicketControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -10704,7 +10742,7 @@ export const TicketControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -10934,7 +10972,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -10980,7 +11018,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11028,12 +11066,65 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
         options.headers
       );
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * - từ chốiCấp quyền viết
+     * @summary Từ chối cấp quyền viết bài
+     * @param {DenyContentCreatorRequest} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    denyContentCreator(
+      body: DenyContentCreatorRequest,
+      options: any = {}
+    ): FetchArgs {
+      // verify required parameter 'body' is not null or undefined
+      if (body === null || body === undefined) {
+        throw new RequiredError(
+          "body",
+          "Required parameter body was null or undefined when calling denyContentCreator."
+        );
+      }
+      const localVarPath = `/api/user/contentAccess/deny`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication bearerAuth required
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      localVarUrlObj.query = Object.assign(
+        {},
+        localVarUrlObj.query,
+        localVarQueryParameter,
+        options.query
+      );
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      removeKeyFromObj(localVarUrlObj, "search");
+      localVarRequestOptions.headers = Object.assign(
+        {},
+        localVarHeaderParameter,
+        options.headers
+      );
+      const needsSerialization =
+        <any>"DenyContentCreatorRequest" !== "string" ||
+        localVarRequestOptions.headers["Content-Type"] === "application/json";
+      localVarRequestOptions.body = needsSerialization
+        ? JSON.stringify(body || {})
+        : body || "";
 
       return {
         url: url.format(localVarUrlObj),
@@ -11082,7 +11173,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11154,7 +11245,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11200,7 +11291,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11245,7 +11336,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11291,7 +11382,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11334,7 +11425,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11387,7 +11478,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11438,7 +11529,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11482,7 +11573,7 @@ export const UserControllerApiFetchParamCreator = function (
         options.query
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      (localVarUrlObj as any).search = undefined;
+      removeKeyFromObj(localVarUrlObj, "search");
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
@@ -11589,6 +11680,36 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
       const localVarFetchArgs = UserControllerApiFetchParamCreator(
         configuration
       ).deleteUser(id, options);
+      return (
+        fetch: FetchAPI = isomorphicFetch,
+        basePath: string = BASE_PATH
+      ) => {
+        return fetch(
+          basePath + localVarFetchArgs.url,
+          localVarFetchArgs.options
+        ).then((response) => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     * - từ chốiCấp quyền viết
+     * @summary Từ chối cấp quyền viết bài
+     * @param {DenyContentCreatorRequest} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    denyContentCreator(
+      body: DenyContentCreatorRequest,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<ApiResponse> {
+      const localVarFetchArgs = UserControllerApiFetchParamCreator(
+        configuration
+      ).denyContentCreator(body, options);
       return (
         fetch: FetchAPI = isomorphicFetch,
         basePath: string = BASE_PATH
@@ -11953,6 +12074,19 @@ export const UserControllerApiFactory = function (
       );
     },
     /**
+     * - từ chốiCấp quyền viết
+     * @summary Từ chối cấp quyền viết bài
+     * @param {DenyContentCreatorRequest} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    denyContentCreator(body: DenyContentCreatorRequest, options?: any) {
+      return UserControllerApiFp(configuration).denyContentCreator(
+        body,
+        options
+      )(fetch, basePath);
+    },
+    /**
      * - Get toàn bộ user
      * @summary Get toàn bộ user
      * @param {string} [username]
@@ -12148,6 +12282,21 @@ export class UserControllerApi extends BaseAPI {
       this.fetch,
       this.basePath
     );
+  }
+
+  /**
+   * - từ chốiCấp quyền viết
+   * @summary Từ chối cấp quyền viết bài
+   * @param {DenyContentCreatorRequest} body
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserControllerApi
+   */
+  public denyContentCreator(body: DenyContentCreatorRequest, options?: any) {
+    return UserControllerApiFp(this.configuration).denyContentCreator(
+      body,
+      options
+    )(this.fetch, this.basePath);
   }
 
   /**

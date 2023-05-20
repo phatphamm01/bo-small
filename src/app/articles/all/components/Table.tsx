@@ -1,76 +1,26 @@
 "use client";
 //THIRD PARTY MODULES
-import { toast } from "react-toastify";
-import { articleApi } from "_@/swagger";
 import { ArticleDto } from "_@/swagger/api";
 import { useContext, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { EyeIcon } from "@heroicons/react/24/outline";
-import { useRouter, useSearchParams } from "next/navigation";
 import {
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 //LAYOUT, COMPONENTS
+import Select from "_@/components/Select";
+import Preview from "_@/components/Preview";
 import Pagination from "_@/components/Pagination";
 import Table from "_@/components/react-table/Table";
 import { SortHeader } from "_@/components/SortHeader";
 import T from "_@/components/react-table/CompoundTable";
-import Preview from "_@/app/articles/all/components/Preview";
-import { constant } from "_@/app/articles/all/components/constans";
-import Select, { SelectTrigger, SelectValue } from "_@/components/Select";
+import ChangeStatus from "_@/app/articles/all/components/ChangeStatus";
 //HOOK
 import useChangeQueryParams from "_@/hooks/useChangeQueryParams";
 
-const tagColor: Record<string, string> = {
-  CREATE: "bg-blue-100 text-blue-800",
-  APPROVE: "bg-green-100 text-green-800",
-  DELETE: "bg-red-100 text-red-800",
-  DRAFT: "bg-yellow-100 text-yellow-800",
-  DENY: "bg-red-100 text-red-800",
-};
-
 const articleChainHelper = createColumnHelper<ArticleDto>();
-
-const ChangeStatus = ({ row }: any) => {
-  const router = useRouter();
-  const value = row.getValue();
-
-  return (
-    <Select
-      key={row.row.original.id}
-      defaultValue={row.getValue()?.toString()}
-      data={constant.map((val) => ({
-        id: val,
-        name: val,
-        value: val,
-      }))}
-      onValueChange={(value) => {
-        const id = row.row.original.id;
-        if (!id) return;
-        articleApi.changeStatusArticle(id, value).then((res) => {
-          if (res.data) {
-            router.refresh();
-            toast.success("Thay đổi trạng thái thành công");
-          } else {
-            toast.error("Thay đổi trạng thái thất bại");
-          }
-        });
-      }}
-    >
-      <SelectTrigger>
-        <div
-          className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
-            value && tagColor[value]
-          }`}
-        >
-          <SelectValue />
-        </div>
-      </SelectTrigger>
-    </Select>
-  );
-};
-
 const articleColumn = [
   articleChainHelper.accessor("id", {
     header: "ID",
@@ -91,13 +41,18 @@ const articleColumn = [
       />
     ),
   }),
+  articleChainHelper.accessor("createdBy", {
+    header: () => <SortHeader name="createdBy" title="Created By" />,
+    size: 150,
+    cell: (row) => <span className="line-clamp-1">{row.getValue()}</span>,
+  }),
   articleChainHelper.accessor("title", {
     header: () => <SortHeader name="title" title="Title" />,
     size: 380,
     cell: (row) => <span className="line-clamp-1">{row.getValue()}</span>,
   }),
-  articleChainHelper.accessor("brief", {
-    header: "Brief",
+  articleChainHelper.accessor("shortDescription", {
+    header: "Short Description",
     size: 380,
     cell: (row) => <span className="line-clamp-1">{row.getValue()}</span>,
   }),

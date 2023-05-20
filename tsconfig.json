@@ -6,7 +6,7 @@
     "checkJs": true,
     // disable: The operand of a 'delete' operator must be optional.
     "noImplicitAny": false,
-
+    "noErrorTruncation": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
